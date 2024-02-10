@@ -10,8 +10,9 @@
         <input type="submit" value="Перевірити">
     </form>
     <?php
-    // Перевірка, чи було надіслано JSON
+    // Перевірка, чи було надіслано JSON через POST-запит
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Перевірка наявності поля "json_input" в POST-запиті
         if (isset($_POST['json_input'])) {
             // Отримуємо JSON з форми
             $json = $_POST['json_input'];
@@ -47,7 +48,7 @@
             echo "<h2>Кореневі поля:</h2>";
             foreach ($fields_to_check_root as $field) {
                 if (array_key_exists($field, $data)) {
-                    echo "$field: <span style='color:green;'>присутнє</span><br>";
+                    echo "$field: <span style='color:green;'>присутнє</span> - Значення: {$data[$field]}<br>";
                 } else {
                     echo "$field: <span style='color:red;'>відсутнє</span><br>";
                 }
@@ -73,13 +74,13 @@
                     ];
                     foreach ($fields_to_check_item as $field) {
                         if (array_key_exists($field, $item)) {
-                            echo "$field: <span style='color:green;'>присутнє</span><br>";
+                            echo "$field: <span style='color:green;'>присутнє</span> - Значення: {$item[$field]}<br>";
                         } else {
                             echo "$field: <span style='color:red;'>відсутнє</span><br>";
                         }
                     }
                     
-                    // Перевірка полів в об'єкті "extension_attributes" в товарах
+                    // Перевірка полів в об'єкті "extension_attributes"
                     echo "<h4>Розширені атрибути:</h4>";
                     if (isset($item['extension_attributes']) && is_array($item['extension_attributes'])) {
                         foreach ($item['extension_attributes'] as $attribute => $value) {
@@ -117,7 +118,7 @@
                 ];
                 foreach ($fields_to_check_billing as $field) {
                     if (array_key_exists($field, $data['billing_address'])) {
-                        echo "$field: <span style='color:green;'>присутнє</span><br>";
+                        echo "$field: <span style='color:green;'>присутнє</span> - Значення: {$data['billing_address'][$field]}<br>";
                     } else {
                         echo "$field: <span style='color:red;'>відсутнє</span><br>";
                     }
@@ -140,7 +141,7 @@
                     ];
                     foreach ($fields_to_check_payment as $field) {
                         if (array_key_exists($field, $payment)) {
-                            echo "$field: <span style='color:green;'>присутнє</span><br>";
+                            echo "$field: <span style='color:green;'>присутнє</span> - Значення: {$payment[$field]}<br>";
                         } else {
                             echo "$field: <span style='color:red;'>відсутнє</span><br>";
                         }
@@ -156,7 +157,7 @@
                         ];
                         foreach ($fields_to_check_payment_details as $field) {
                             if (array_key_exists($field, $payment['payment_details_info'])) {
-                                echo "$field: <span style='color:green;'>присутнє</span><br>";
+                                echo "$field: <span style='color:green;'>присутнє</span> - Значення: {$payment['payment_details_info'][$field]}<br>";
                             } else {
                                 echo "$field: <span style='color:red;'>відсутнє</span><br>";
                             }
@@ -169,7 +170,7 @@
                 echo "Масив 'payment' у JSON не знайдено або не є масивом.";
             }
 
-            // Перевірка полів у блоку доставки ЦЕ ПИЗДЕЦЬ!!!
+            // Перевірка полів у блоку доставки
             echo "<h2>Блок 'shipping_assignments':</h2>";
             if (isset($data['extension_attributes']) && is_array($data['extension_attributes']) && isset($data['extension_attributes']['shipping_assignments']) && is_array($data['extension_attributes']['shipping_assignments'])) {
                 foreach ($data['extension_attributes']['shipping_assignments'] as $index => $assignment) {
@@ -181,7 +182,7 @@
                         ];
                         foreach ($fields_to_check_shipping as $field) {
                             if (array_key_exists($field, $assignment['shipping'])) {
-                                echo "$field: <span style='color:green;'>присутнє</span><br>";
+                                echo "$field: <span style='color:green;'>присутнє</span> - Значення: {$assignment['shipping'][$field]}<br>";
                             } else {
                                 echo "$field: <span style='color:red;'>відсутнє</span><br>";
                             }
@@ -197,7 +198,7 @@
                             ];
                             foreach ($fields_to_check_address as $field) {
                                 if (array_key_exists($field, $assignment['shipping']['address'])) {
-                                    echo "$field: <span style='color:green;'>присутнє</span><br>";
+                                    echo "$field: <span style='color:green;'>присутнє</span> - Значення: {$assignment['shipping']['address'][$field]}<br>";
                                 } else {
                                     echo "$field: <span style='color:red;'>відсутнє</span><br>";
                                 }
@@ -230,13 +231,13 @@
                                         ];
                                         foreach ($fields_to_check_street as $street_field) {
                                             if (array_key_exists($street_field, $assignment['shipping']['address']['extension_attributes']['street'])) {
-                                                echo "$street_field: <span style='color:green;'>присутнє</span><br>";
+                                                echo "$street_field: <span style='color:green;'>присутнє</span> - Значення: {$assignment['shipping']['address']['extension_attributes']['street'][$street_field]}<br>";
                                             } else {
                                                 echo "$street_field: <span style='color:red;'>відсутнє</span><br>";
                                             }
                                         }
                                     } elseif (array_key_exists($field, $assignment['shipping']['address']['extension_attributes'])) {
-                                        echo "$field: <span style='color:green;'>присутнє</span><br>";
+                                        echo "$field: <span style='color:green;'>присутнє</span> - Значення: {$assignment['shipping']['address']['extension_attributes'][$field]}<br>";
                                     } else {
                                         echo "$field: <span style='color:red;'>відсутнє</span><br>";
                                     }
