@@ -48,7 +48,11 @@
             echo "<h2>Кореневі поля:</h2>";
             foreach ($fields_to_check_root as $field) {
                 if (array_key_exists($field, $data)) {
-                    echo "$field: <span style='color:green;'>присутнє</span> - Значення: {$data[$field]}<br>";
+                    if (is_array($data[$field])) {
+                        echo "$field: <span style='color:green;'>присутнє</span><br>";
+                    } else {
+                        echo "$field: <span style='color:green;'>присутнє</span> - Значення: {$data[$field]}<br>";
+                    }
                 } else {
                     echo "$field: <span style='color:red;'>відсутнє</span><br>";
                 }
@@ -74,7 +78,11 @@
                     ];
                     foreach ($fields_to_check_item as $field) {
                         if (array_key_exists($field, $item)) {
-                            echo "$field: <span style='color:green;'>присутнє</span> - Значення: {$item[$field]}<br>";
+                            if (is_array($item[$field])) {
+                                echo "$field: <span style='color:green;'>присутнє</span><br>";
+                            } else {
+                                echo "$field: <span style='color:green;'>присутнє</span> - Значення: {$item[$field]}<br>";
+                            }
                         } else {
                             echo "$field: <span style='color:red;'>відсутнє</span><br>";
                         }
@@ -118,7 +126,11 @@
                 ];
                 foreach ($fields_to_check_billing as $field) {
                     if (array_key_exists($field, $data['billing_address'])) {
-                        echo "$field: <span style='color:green;'>присутнє</span> - Значення: {$data['billing_address'][$field]}<br>";
+                        if (is_array($data['billing_address'][$field])) {
+                            echo "$field: <span style='color:green;'>присутнє</span><br>";
+                        } else {
+                            echo "$field: <span style='color:green;'>присутнє</span> - Значення: {$data['billing_address'][$field]}<br>";
+                        }
                     } else {
                         echo "$field: <span style='color:red;'>відсутнє</span><br>";
                     }
@@ -141,7 +153,11 @@
                     ];
                     foreach ($fields_to_check_payment as $field) {
                         if (array_key_exists($field, $payment)) {
-                            echo "$field: <span style='color:green;'>присутнє</span> - Значення: {$payment[$field]}<br>";
+                            if (is_array($payment[$field])) {
+                                echo "$field: <span style='color:green;'>присутнє</span><br>";
+                            } else {
+                                echo "$field: <span style='color:green;'>присутнє</span> - Значення: {$payment[$field]}<br>";
+                            }
                         } else {
                             echo "$field: <span style='color:red;'>відсутнє</span><br>";
                         }
@@ -157,7 +173,11 @@
                         ];
                         foreach ($fields_to_check_payment_details as $field) {
                             if (array_key_exists($field, $payment['payment_details_info'])) {
-                                echo "$field: <span style='color:green;'>присутнє</span> - Значення: {$payment['payment_details_info'][$field]}<br>";
+                                if (is_array($payment['payment_details_info'][$field])) {
+                                    echo "$field: <span style='color:green;'>присутнє</span><br>";
+                                } else {
+                                    echo "$field: <span style='color:green;'>присутнє</span> - Значення: {$payment['payment_details_info'][$field]}<br>";
+                                }
                             } else {
                                 echo "$field: <span style='color:red;'>відсутнє</span><br>";
                             }
@@ -182,7 +202,11 @@
                         ];
                         foreach ($fields_to_check_shipping as $field) {
                             if (array_key_exists($field, $assignment['shipping'])) {
-                                echo "$field: <span style='color:green;'>присутнє</span> - Значення: {$assignment['shipping'][$field]}<br>";
+                                if (is_array($assignment['shipping'][$field])) {
+                                    echo "$field: <span style='color:green;'>присутнє</span><br>";
+                                } else {
+                                    echo "$field: <span style='color:green;'>присутнє</span> - Значення: {$assignment['shipping'][$field]}<br>";
+                                }
                             } else {
                                 echo "$field: <span style='color:red;'>відсутнє</span><br>";
                             }
@@ -198,7 +222,11 @@
                             ];
                             foreach ($fields_to_check_address as $field) {
                                 if (array_key_exists($field, $assignment['shipping']['address'])) {
-                                    echo "$field: <span style='color:green;'>присутнє</span> - Значення: {$assignment['shipping']['address'][$field]}<br>";
+                                    if (is_array($assignment['shipping']['address'][$field])) {
+                                        echo "$field: <span style='color:green;'>присутнє</span><br>";
+                                    } else {
+                                        echo "$field: <span style='color:green;'>присутнє</span> - Значення: {$assignment['shipping']['address'][$field]}<br>";
+                                    }
                                 } else {
                                     echo "$field: <span style='color:red;'>відсутнє</span><br>";
                                 }
@@ -231,13 +259,21 @@
                                         ];
                                         foreach ($fields_to_check_street as $street_field) {
                                             if (array_key_exists($street_field, $assignment['shipping']['address']['extension_attributes']['street'])) {
-                                                echo "$street_field: <span style='color:green;'>присутнє</span> - Значення: {$assignment['shipping']['address']['extension_attributes']['street'][$street_field]}<br>";
+                                                if (is_array($assignment['shipping']['address']['extension_attributes']['street'][$street_field])) {
+                                                    echo "$street_field: <span style='color:green;'>присутнє</span><br>";
+                                                } else {
+                                                    echo "$street_field: <span style='color:green;'>присутнє</span> - Значення: {$assignment['shipping']['address']['extension_attributes']['street'][$street_field]}<br>";
+                                                }
                                             } else {
                                                 echo "$street_field: <span style='color:red;'>відсутнє</span><br>";
                                             }
                                         }
                                     } elseif (array_key_exists($field, $assignment['shipping']['address']['extension_attributes'])) {
-                                        echo "$field: <span style='color:green;'>присутнє</span> - Значення: {$assignment['shipping']['address']['extension_attributes'][$field]}<br>";
+                                        if (is_array($assignment['shipping']['address']['extension_attributes'][$field])) {
+                                            echo "$field: <span style='color:green;'>присутнє</span><br>";
+                                        } else {
+                                            echo "$field: <span style='color:green;'>присутнє</span> - Значення: {$assignment['shipping']['address']['extension_attributes'][$field]}<br>";
+                                        }
                                     } else {
                                         echo "$field: <span style='color:red;'>відсутнє</span><br>";
                                     }
